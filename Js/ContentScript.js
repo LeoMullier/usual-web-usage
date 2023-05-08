@@ -1,3 +1,7 @@
+console.log("hhhhhhhhhhhhhhhhhhhh")
+  chrome.Actions.setBadgeText({ tabId: myTabId, text: 'grr' });
+
+
 /*
 If the click was on a link, send a message to the background page.
 The message contains the link's URL.
@@ -11,13 +15,13 @@ function notifyExtension(e) {
     return;
 
    //console.log("content script sending message");
-   browser.runtime.sendMessage({type: "click", url: target.href, timestamp: Date.now(), x: e.pageX, y: e.pageY});
+   chrome.runtime.sendMessage({type: "click", url: target.href, timestamp: Date.now(), x: e.pageX, y: e.pageY});
 }
 
 
 function mouseEventHandler(e)
 {
-  browser.runtime.sendMessage({type: "move", timestamp: Date.now(), x: e.pageX, y: e.pageY});
+  chrome.runtime.sendMessage({type: "move", timestamp: Date.now(), x: e.pageX, y: e.pageY});
 }
 
 /*

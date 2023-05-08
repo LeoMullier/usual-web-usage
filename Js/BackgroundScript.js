@@ -1,3 +1,7 @@
+chrome.action.setBadgeText({text: 'off'});
+chrome.action.setBadgeBackgroundColor({color: 'white'}); 
+
+
 let message_list = [];
 
 function notify(message) {
@@ -5,6 +9,7 @@ function notify(message) {
 
   if (message.type == "save")
   {
+	console.log("save")
     save();
   }
 }
@@ -22,4 +27,5 @@ function save()
 /*
 Assign `notify()` as a listener to messages from the content script.
 */
-browser.runtime.onMessage.addListener(notify);
+chrome.runtime.onMessage.addListener(notify);
+

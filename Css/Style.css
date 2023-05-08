@@ -1,0 +1,48 @@
+body
+{
+    padding: 0px;
+    margin: 0px;
+}
+
+.Container
+{
+    padding: 0px;
+    margin: 0px;
+    height: 500px;
+    width: 500px;
+    background-color: red;
+}
+
+.Left
+{
+    padding: 20px;
+    margin: 0px;
+    height: 100%;
+    width: 200px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    box-sizing: border-box;
+    background-color: white;
+}
+
+.Right
+{
+    padding: 0px;
+    margin: 0px;
+    height: 100%;
+    width: 300px;
+    position: absolute;
+    left: 200px;
+    top: 0px;
+    background-color: blue;
+}
+
+.Logo
+{
+    width: 100%;
+}
+
+button{
+    width: 200px;
+}
