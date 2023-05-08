@@ -1,7 +1,25 @@
+@font-face {
+    font-family: "Light";
+    src: url("../Font/Brown-Light.ttf") format('truetype');
+}
+
+
+@font-face {
+    font-family: "Regular";
+    src: url("../Font/Brown-Regular.ttf") format('truetype');
+}
+
+
+@font-face {
+    font-family: "Bold";
+    src: url("../Font/Brown-Bold.ttf") format('truetype');
+}
+
 body
 {
     padding: 0px;
     margin: 0px;
+    font-family: Light;
 }
 
 .Container
@@ -10,12 +28,12 @@ body
     margin: 0px;
     height: 500px;
     width: 500px;
-    background-color: red;
+    background-color: #ffb341;
 }
 
 .Left
 {
-    padding: 20px;
+    padding: 15px;
     margin: 0px;
     height: 100%;
     width: 200px;
@@ -35,12 +53,29 @@ body
     position: absolute;
     left: 200px;
     top: 0px;
-    background-color: blue;
+    background-color: lightgrey;
 }
 
 .Logo
 {
     width: 100%;
+}
+
+.Title
+{
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    height: 200px;
+    width: 200px;
+    background-color: white;
+    font-family: Bold;
+    font-size: 25px;
+    padding: 15px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: flex-end;
+    line-height: 22.5px;
 }
 
 button{
