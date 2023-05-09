@@ -1,5 +1,5 @@
 {
-	"manifest_version": 3,
+	"manifest_version": 2,
 
 	"name": "Usual Usage on the Web",
 
@@ -10,7 +10,7 @@
 	"permissions": ["notifications", "tabs", "downloads"],
 
 	"background": {
-		"service_worker": "Js/BackgroundScript.js"
+		"scripts": ["Js/BackgroundScript.js"]
 	},
 
 	"icons": {              
@@ -20,7 +20,7 @@
 		"128": "Img/Logo128px.png"    
 	},
 
-	"action": {
+	"browser_action": {
 		"default_icon": {              
 			"16": "Img/Logo16px.png",
 			"32": "Img/Logo32px.png",
@@ -33,7 +33,7 @@
 
 	"content_scripts": [
 	{
-		"matches": ["<all_urls>"],
+		"matches": ["*://*.utc.fr/*"],
 		"js": ["Js/ContentScript.js"]
 	}
 	]

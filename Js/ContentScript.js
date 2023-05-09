@@ -1,5 +1,5 @@
 console.log("hhhhhhhhhhhhhhhhhhhh")
-  chrome.Actions.setBadgeText({ tabId: myTabId, text: 'grr' });
+  chrome.browserAction.setBadgeText({ tabId: myTabId, text: 'grr' });
 
 
 /*
