@@ -5,7 +5,7 @@ chrome.browserAction.setBadgeBackgroundColor({
     color: 'white'
 });
 
-let survey_id = "001";
+let survey_id = "002";
 
 // Generate a unique anonymous key per user
 let uwukey = "";
@@ -27,6 +27,11 @@ let message_list = [];
 let tab_urls = {};
 let clicked = {};
 
+function add_message(obj)
+{
+    message_list.push(obj);
+}
+
 function notify(message, sender, sendResponse) {
 
     message["tab"] = sender.tab.id;
@@ -35,8 +40,13 @@ function notify(message, sender, sendResponse) {
         message["from"] = tab_urls[sender.tab.id];
         clicked[sender.tab.id] = true;
     }
+    else if (message.type == "dom_load")
+    {
+        DOMLoaded({tabId: sender.tab.id, frameId: message["frame"], title: message["title"]});
+        return;
+    }
 
-    message_list.push(message);
+    add_message(message);
 
     console.log("Received message of type " + message.type + " from " + sender.tab.id + " at " + message.contents);
 
@@ -68,7 +78,7 @@ function onTabChanged(tabId, tab, closed) {
         function(tabs) {
 
             if (closed) {
-                message_list.push({
+                add_message({
                     type: "closed",
                     tab: tabId,
                     timestamp: Date.now()
@@ -86,15 +96,25 @@ function onTabChanged(tabId, tab, closed) {
 
             // No more tracked tabs, or we're about to close the last
             if (tabs.length == 0 || (closed && tabs.length == 1 && tabs[0].id == tabId)) {
+
+                if (message_list.length == 0)
+                    return;
+
                 console.log("Sending data now");
 
-                chrome.windows.getCurrent(function(window) {
+                    chrome.windows.getCurrent(function(window) {
+                    // Remove duplicate messages (they sometimes appear for some reason)
+                    message_list = [...new Set(message_list)]
+                    // Sort by timestamp
+                    message_list.sort((a, b) => a.timestamp > b.timestamp)
+
                     message_list.unshift({
                         type: "session_start",
                         unique_key: uwukey,
                         survey_id: survey_id,
-                        screen_width: window.width,
-                        screen_height: window.height
+                        timestamp: message_list[0].timestamp, // get earliest timestamp
+                        /*screen_width: window.width,
+                        screen_height: window.height*/
                     });
                     message_list.push({
                         type: "session_end",
@@ -133,26 +153,44 @@ function navTarget(details) {
         },
 
         function(frame) {
-            //console.log("Nav target from " + details.sourceTabId + ", " + frame.url + " to " + details.tabId + " at " + details.url + " bob " + String(details.tabId + "-" + details.frameId));
+            console.log("Nav target from " + details.sourceTabId + ", " + frame.url + " to " + details.tabId + " at " + details.url + " bob " + String(details.tabId + "-" + details.frameId));
             taburlarray[details.tabId] = frame.url.split("?")[0]; // remove parameters, il y a le login parfois
         });
 }
 
+let tabframe_pending_msg = {};
+
 function nagivation(details) {
     if (!details.transitionQualifiers.includes("client_redirect")) {
-        message_list.push({
-            type: "navigation",
-            timestamp: Date.now(),
-            src_url: taburlarray[details.tabId],
-            dest_url: details.url.split("?")[0],
-            trans_quals: details.transitionQualifiers,
-            trans_type: details.transitionType,
-            tab: details.tabId
-        });
-        //console.log("onCommitted from: " + taburlarray[details.tabId] + " to: " +  details.url + " quals " + details.transitionQualifiers + " type " + details.transitionType);
+
+            console.log("Navigating to " + details.tabId + "-" + details.frameId);
+            tabframe_pending_msg[details.tabId + "-" + details.frameId] = {
+                type: "navigation",
+                timestamp: Date.now(),
+                src_url: taburlarray[details.tabId],
+                dest_url: details.url.split("?")[0],
+                trans_quals: details.transitionQualifiers,
+                trans_type: details.transitionType,
+                tab: details.tabId
+            };
+            console.log("onCommitted from: " + taburlarray[details.tabId] + " to: " +  details.url + " quals " + details.transitionQualifiers + " type " + details.transitionType);
     }
 
     taburlarray[details.tabId] = details.url.split("?")[0]; // remove parameters, il y a le login parfois
+}
+
+function DOMLoaded(details) {
+    let msg = tabframe_pending_msg[details.tabId + "-" + details.frameId];
+    if (!msg)
+    {
+        console.error("No message for loaded DOM tab " + details.tabId + "-" + details.frameId);
+    }
+    else
+    {
+        console.log("Loaded DOM for tab " + details.tabId + "-" + details.frameId);
+        msg.title = details.title;
+        add_message(msg);
+    }
 }
 
 chrome.runtime.onMessage.addListener(notify);
@@ -178,6 +216,7 @@ filtered_urls = {
 
 //chrome.webNavigation.onBeforeNavigate.addListener(function(details) { console.log("onBeforeNavigate to: " +  details.url); }, filtered_urls);
 chrome.webNavigation.onCommitted.addListener(nagivation, filtered_urls);
+chrome.webNavigation.onDOMContentLoaded.addListener(DOMLoaded, filtered_urls);
 chrome.webNavigation.onCreatedNavigationTarget.addListener(navTarget, filtered_urls);
 
 //chrome.history.onVisited.addListener(function(item) { console.log("Visiting: " + item.url); } ); 

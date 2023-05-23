@@ -1,3 +1,6 @@
+console.log("Spawned frame " + browser.runtime.getFrameId(window) + " with title " + document.title);
+chrome.runtime.sendMessage({type: "dom_load", frame: browser.runtime.getFrameId(window), title: document.title});
+
 
 /*
 If the click was on a link, send a message to the background page.
@@ -12,7 +15,9 @@ function notifyExtension(e) {
     return;
 
    //console.log("content script sending message");
-   chrome.runtime.sendMessage({type: "click", url: target.href.split("?")[0], contents: target.outerHTML, timestamp: Date.now(), x: e.pageX, y: e.pageY});
+  console.log("Size : " + window.screen.width + ", " + window.screen.height);
+   chrome.runtime.sendMessage({type: "click", url: target.href.split("?")[0], possible_title: e.target.innerHTML, contents: target.outerHTML, timestamp: Date.now(), x: e.pageX, y: e.pageY,
+        width: window.screen.width, height: window.screen.height});
 }
 
 
