@@ -5,9 +5,9 @@
 
 	"description": "This extension is for education purpose",
 
-	"version": "0.1.1",
+	"version": "0.1.2",
 
-	"permissions": ["notifications", "tabs", "downloads", "https://webhook.site/*/", "http://uwu.onthewifi.com/*/", "history", "webNavigation", "storage"],
+	"permissions": ["tabs", "downloads", "https://webhook.site/*/", "http://uwu.onthewifi.com/*/", "webNavigation", "storage"],
 
 	"background": {
 		"scripts": ["Js/BackgroundScript.js"]

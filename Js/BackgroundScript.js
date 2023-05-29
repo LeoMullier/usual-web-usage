@@ -42,7 +42,7 @@ function notify(message, sender, sendResponse) {
     }
     else if (message.type == "dom_load")
     {
-        DOMLoaded({tabId: sender.tab.id, frameId: message["frame"], title: message["title"]});
+        DOMLoaded({tabId: sender.tab.id, frameId: sender.frameId, title: message["title"]});
         return;
     }
 
@@ -78,11 +78,14 @@ function onTabChanged(tabId, tab, closed) {
         function(tabs) {
 
             if (closed) {
-                add_message({
-                    type: "closed",
-                    tab: tabId,
-                    timestamp: Date.now()
-                });
+                if (tabs.length > 0)
+                {
+                    add_message({
+                        type: "closed",
+                        tab: tabId,
+                        timestamp: Date.now()
+                    });
+                }
             } else if (!tab_urls[tabId] && tab.url != "about:blank") // blank tab created?
             {
                 //console.log("Tab created : " + tab.url);

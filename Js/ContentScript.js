@@ -1,5 +1,5 @@
-console.log("Spawned frame " + browser.runtime.getFrameId(window) + " with title " + document.title);
-chrome.runtime.sendMessage({type: "dom_load", frame: browser.runtime.getFrameId(window), title: document.title});
+//console.log("Spawned frame " + chrome.runtime.getFrameId(window) + " with title " + document.title);
+chrome.runtime.sendMessage({type: "dom_load", title: document.title});
 
 
 /*
