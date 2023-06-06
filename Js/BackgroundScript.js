@@ -66,7 +66,7 @@ function save() {
 
     chrome.downloads.download({
         url: file_url,
-        filename: 'navigation_data.json'
+        filename: 'uwu_data.json'
     });
 }
 
@@ -156,6 +156,14 @@ function onTabChanged(tabId, tab, closed) {
                             {
                                 console.log("Censored " + message_list[i][censorfields[j]] + " with " + filtered_urls)
                                 message_list[i]["title"] = "";
+                            }
+
+                            if (message_list[i][censorfields[j]] !== undefined && 
+                                message_list[i]["possible_title"] !== undefined &&
+                                 sensitive_title_filters.some((reg) => message_list[i][censorfields[j]].match(reg)))
+                            {
+                                console.log("Censored " + message_list[i][censorfields[j]] + " with " + filtered_urls)
+                                message_list[i]["possible_title"] = "";
                             }
                         }
                     } 
