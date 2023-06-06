@@ -1,8 +1,8 @@
 chrome.browserAction.setBadgeText({
-    text: 'off'
+    text: 'on'
 });
 chrome.browserAction.setBadgeBackgroundColor({
-    color: 'white'
+    color: '#ffb341'
 });
 
 let survey_id = "003";

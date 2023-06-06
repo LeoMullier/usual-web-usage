@@ -1,12 +1,18 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="utf-8">
         <link href="Css/Style.css" rel="stylesheet"/>
+        <meta name="author" content="Yann Boucher" />
+		<meta name="author" content="Mathilde Lange" />
+        <meta name="author" content="Léo Mullier" />
     </head>
     <body>
         <div class="Container">
             <div class="Left">
-                <img class="Logo" src="Img/LogoOriginal.png">     
+                <a href="https://uwu.onthewifi.com">
+                    <img class="Logo" src="Img/LogoOriginal.png">  
+                </a>   
             </div>
 
             <div class="Title">
@@ -17,9 +23,51 @@
                 </span>
             </div>
             <div class="Right">
-                <button id="openBtn">
-                    Save logged session data
-                </button>
+                <p class="Subtitle">
+                    Allowed websites
+                </p>
+                <p class="Text">
+                    Your UWU extension is currently allowed to study your interactions on the websites whose URL contains the following strings
+                </p>
+
+                <div class="Site">
+                    <label class="SiteText" for="utc.fr">
+                        *utc.fr*
+                    </label>
+                    <label>
+                        <input class="toggle-checkbox" type="checkbox" id="utc.fr"/>
+                        <span class="toggle-switch"></span>
+                    </label>
+                </div>
+
+                <p class="Subtitle" style="margin-top: 30px;">
+                    Keep the control
+                </p>
+                <p class="Text">
+                    At anytime you can have a look on the data your UWU extension is currently saving and sending us for education purpose only
+                </p>
+                
+                <div class="Site">
+                    <label class="SiteText" for="openBtn">
+                        download
+                    </label>
+                    <button class="Button" id="openBtn">
+                        <svg class="ButtonIcon" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512">
+                            <path fill="currentcolor" d="M256 0a256 256 0 1 0 0 512A256 256 0 1 0 256 0zM127 281c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l71 71L232 136c0-13.3 10.7-24 24-24s24 10.7 24 24l0 182.1 71-71c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9L273 393c-9.4 9.4-24.6 9.4-33.9 0L127 281z"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <p class="Subtitle" style="margin-top: 30px;">
+                    About UWU
+                </p>
+                <p class="Text">
+                    UWU is a browser add-on made by a team of students from the University of Technologie of Compiègne (in France). 
+                    <br>
+                    <br>It aim is to collect data about the interactions on specific websites made by real users. 
+                    <br>
+                    <br>This experimentation is only for education purpose and the collected data are only used by researchers and students.
+                </p>
             </div>
         </div>
         <script type="text/javascript" src="Js/Script.js"></script>

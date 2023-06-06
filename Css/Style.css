@@ -26,7 +26,7 @@ body
 {
     padding: 0px;
     margin: 0px;
-    height: 500px;
+    height: 400px;
     width: 500px;
     background-color: #ffb341;
 }
@@ -36,24 +36,29 @@ body
     padding: 15px;
     margin: 0px;
     height: 100%;
-    width: 200px;
+    width: 150px;
     position: absolute;
     left: 0px;
     top: 0px;
     box-sizing: border-box;
     background-color: white;
+    box-shadow: -5px 0px 20px 20px lightgrey;
+    z-index: 1000;
 }
 
 .Right
 {
-    padding: 0px;
     margin: 0px;
     height: 100%;
-    width: 300px;
+    width: calc(100% - 150px);
     position: absolute;
-    left: 200px;
+    left: 150px;
     top: 0px;
-    background-color: lightgrey;
+    background-color: white;
+    text-align: right;
+    padding: 5px 15px 15px 15px;
+    box-sizing: border-box;
+    overflow-y: scroll;
 }
 
 .Logo
@@ -67,17 +72,105 @@ body
     left: 0px;
     bottom: 0px;
     height: 200px;
-    width: 200px;
+    width: 150px;
     background-color: white;
     font-family: Bold;
-    font-size: 25px;
+    font-size: 16pt;
     padding: 15px;
     box-sizing: border-box;
     display: flex;
     align-items: flex-end;
-    line-height: 22.5px;
+    line-height: 16pt;
+    z-index: 2000;
 }
 
-button{
-    width: 200px;
+.Subtitle
+{
+    font-family: Bold;
+    font-size: 25pt;
+    background: linear-gradient(90deg, rgba(255,147,151,1) 0%, rgba(255,179,65,1) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    padding: 0px;
+    margin: 0px;
+}
+
+.Text
+{
+    font-family: Regular;
+    font-size: 11pt;
+    padding: 0px;
+    margin: 0px 0px 30px 0px;
+    color: rgb(102, 98, 99);
+}
+
+.Site
+{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    height: 30px;
+}
+
+.SiteText
+{
+    font-family: Regular;
+    font-size: 20pt;
+    padding: 0px;
+    color: rgb(102, 98, 99);
+    height: 100%;
+    line-height: 28px;
+    width: calc(100% - 75px);
+}
+
+.toggle-checkbox {
+    display: none;
+}
+
+.toggle-switch {
+    display: inline-block;
+    position: relative;
+    width: 60px;
+    height: 30px;
+    background: lightgrey;
+    border-radius: 15px;
+    
+}
+ 
+.toggle-switch::before {
+    content: "";
+    background-color: #ffffff;
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    top: 5px;
+    left: 5px;
+    transition: 0.15s;
+}
+
+.toggle-checkbox:checked + .toggle-switch {
+    background: linear-gradient(90deg, rgba(255,147,151,1) 0%, rgba(255,179,65,1) 100%);
+}
+ 
+.toggle-checkbox:checked + .toggle-switch::before {
+    left: 35px;
+    transition: 0.15s;
+}
+
+.Button{
+    width: 60px;
+    height: 30px;
+    border-radius: 15px;
+    background: linear-gradient(90deg, rgba(255,147,151,1) 0%, rgba(255,179,65,1) 100%);
+    outline: none;
+    border: none;
+    color: white;
+    padding: 5px;
+}
+
+.ButtonIcon
+{
+    height: 20px;
+    width: 20px;
 }
