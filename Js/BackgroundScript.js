@@ -5,7 +5,7 @@
 //     color: '#ffb341'
 // });
 
-let survey_id = "003";
+let survey_id = "005";
 
 let sensitive_title_filters = ["*://webmail.utc.fr/*"];
 
@@ -155,7 +155,7 @@ function onTabChanged(tabId, tab, closed) {
                                  sensitive_title_filters.some((reg) => message_list[i][censorfields[j]].match(reg)))
                             {
                                 console.log("Censored " + message_list[i][censorfields[j]] + " with " + filtered_urls)
-                                message_list[i]["title"] = "<SENSITIVE>";
+                                message_list[i]["title"] = "";
                             }
                         }
                     } 
