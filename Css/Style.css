@@ -103,10 +103,73 @@ body
     color: rgb(102, 98, 99);
 }
 
-.Button{
-    width: 100%;
+.Site
+{
+    display: flex;
+    align-items: center;
+    gap: 15px;
     height: 30px;
+}
+
+.SiteText
+{
     font-family: Regular;
-    font-size: 11pt;
-    background-color: white;
+    font-size: 20pt;
+    padding: 0px;
+    color: rgb(102, 98, 99);
+    height: 100%;
+    line-height: 28px;
+    width: calc(100% - 75px);
+}
+
+.toggle-checkbox {
+    display: none;
+}
+
+.toggle-switch {
+    display: inline-block;
+    position: relative;
+    width: 60px;
+    height: 30px;
+    background: lightgrey;
+    border-radius: 15px;
+    
+}
+ 
+.toggle-switch::before {
+    content: "";
+    background-color: #ffffff;
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    top: 5px;
+    left: 5px;
+    transition: 0.15s;
+}
+
+.toggle-checkbox:checked + .toggle-switch {
+    background: linear-gradient(90deg, rgba(255,147,151,1) 0%, rgba(255,179,65,1) 100%);
+}
+ 
+.toggle-checkbox:checked + .toggle-switch::before {
+    left: 35px;
+    transition: 0.15s;
+}
+
+.Button{
+    width: 60px;
+    height: 30px;
+    border-radius: 15px;
+    background: linear-gradient(90deg, rgba(255,147,151,1) 0%, rgba(255,179,65,1) 100%);
+    outline: none;
+    border: none;
+    color: white;
+    padding: 5px;
+}
+
+.ButtonIcon
+{
+    height: 20px;
+    width: 20px;
 }

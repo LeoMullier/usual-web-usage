@@ -23,15 +23,32 @@
                 <p class="Text">
                     Your UWU extension is currently allowed to study your interactions on the websites whose URL contains the following strings
                 </p>
-                <p class="Subtitle">
+                <div class="Site">
+                    <label class="SiteText" for="utc.fr">
+                        *utc.fr*
+                    </label>
+                    <label>
+                        <input class="toggle-checkbox" type="checkbox" id="utc.fr"/>
+                        <span class="toggle-switch"></span>
+                    </label>
+                </div>
+                <p class="Subtitle" style="margin-top: 30px;">
                     Keep the control
                 </p>
                 <p class="Text">
-                    At anytime you can have a look on the data your UWU extension is currently saving and sending to us for education purpose only
+                    At anytime you can have a look on the data your UWU extension is currently saving and sending us for education purpose only
                 </p>
-                <button class="Button" id="openBtn">
-                    Download my data
-                </button>
+                
+                <div class="Site">
+                    <label class="SiteText" for="openBtn">
+                        download
+                    </label>
+                    <button class="Button" id="openBtn">
+                        <svg class="ButtonIcon" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512">
+                            <path fill="currentcolor" d="M256 0a256 256 0 1 0 0 512A256 256 0 1 0 256 0zM127 281c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l71 71L232 136c0-13.3 10.7-24 24-24s24 10.7 24 24l0 182.1 71-71c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9L273 393c-9.4 9.4-24.6 9.4-33.9 0L127 281z"/>
+                        </svg>
+                    </button>
+                </div>
             </div>
         </div>
         <script type="text/javascript" src="Js/Script.js"></script>
