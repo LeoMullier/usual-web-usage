@@ -24,7 +24,7 @@ chrome.storage.sync.get('uwukey', function(data) {
 
 
 let message_list = [];
-let tab_urls = {};
+let taburlarray = {};
 let clicked = {};
 
 function add_message(obj)
@@ -42,7 +42,7 @@ function notify(message, sender, sendResponse) {
     message["tab"] = sender.tab.id;
 
     if (message.type == "click") {
-        message["from"] = tab_urls[sender.tab.id];
+        //message["from"] = taburlarray[sender.tab.id];
         clicked[sender.tab.id] = true;
     }
     else if (message.type == "dom_load")
@@ -85,10 +85,10 @@ function onTabChanged(tabId, tab, closed) {
                         timestamp: Date.now()
                     });
                 }
-            } else if (!tab_urls[tabId] && tab.url != "about:blank") // blank tab created?
+            } else if (!taburlarray[tabId] && tab.url != "about:blank") // blank tab created?
             {
                 //console.log("Tab created : " + tab.url);
-                tab_urls[tabId] = tab.url.split("?")[0];
+                taburlarray[tabId] = tab.url.split("?")[0];
             }
             // URL Change not due to a click, record
             else if (!clicked[tabId]) {
@@ -123,7 +123,28 @@ function onTabChanged(tabId, tab, closed) {
                         timestamp: Date.now()
                     });
 
-                    let dest_urls = ["https://webhook.site/cb3f5b1a-626f-4635-ad6e-020769b7a25e", "https://uwu.onthewifi.com/recordedactionsfromuwuextension"];
+                    filtered_urls = chrome.runtime.getManifest()["content_scripts"][0]["matches"];
+                    for (let i = 0; i < filtered_urls.length; ++i) {
+                        let urlfilter_re = filtered_urls[i].replace(/[{}()\[\]\\.+?^$|]/g, "\\$&").replace(/\*/g, ".*?")
+                        filtered_urls[i] = urlfilter_re;
+                    }
+
+                    console.log(filtered_urls)
+
+                    // Make sure all external URLs are hidden
+                    for (let i = 0; i < message_list.length; ++i)
+                    {
+                        // External URL
+                        let fields = ["src_url", "dst_url", "from", "url"];
+                        for (let j = 0; j < fields.length; ++j)
+                            if (message_list[i][fields[j]] !== undefined && message_list[i][fields[j]] && !filtered_urls.some((reg) => message_list[i][fields[j]].match(reg)))
+                            {
+                                console.log("Failed " + message_list[i][fields[j]] + " with " + filtered_urls)
+                                message_list[i][fields[j]] = "<EXTERNAL>";
+                            }
+                    } 
+
+                    let dest_urls = ["https://webhook.site/7c50cda7-e086-4806-8900-3f3c706e86b1", "https://uwu.onthewifi.com/recordedactionsfromuwuextension"];
                     for (let i = 0; i < dest_urls.length; ++i) {
                         var xhr = new XMLHttpRequest();
                         var url = dest_urls[i];
@@ -146,7 +167,6 @@ function onTabChanged(tabId, tab, closed) {
         });
 }
 
-let taburlarray = {};
 
 function navTarget(details) {
     chrome.webNavigation.getFrame({
