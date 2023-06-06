@@ -58,6 +58,7 @@ body
     text-align: right;
     padding: 5px 15px 15px 15px;
     box-sizing: border-box;
+    overflow-y: scroll;
 }
 
 .Logo
