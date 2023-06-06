@@ -79,12 +79,12 @@ body
     width: 150px;
     background-color: white;
     font-family: Bold;
-    font-size: 16pt;
+    font-size: 22pt;
     padding: 15px;
     box-sizing: border-box;
     display: flex;
     align-items: flex-end;
-    line-height: 16pt;
+    line-height: 22pt;
     z-index: 2000;
 }
 
