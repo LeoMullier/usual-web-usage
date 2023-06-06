@@ -110,6 +110,7 @@ body
     align-items: center;
     gap: 15px;
     height: 30px;
+    cursor: pointer;
 }
 
 .SiteText
@@ -121,6 +122,7 @@ body
     height: 100%;
     line-height: 28px;
     width: calc(100% - 75px);
+    cursor: pointer;
 }
 
 .toggle-checkbox {
@@ -134,6 +136,7 @@ body
     height: 30px;
     background: lightgrey;
     border-radius: 15px;
+    cursor: pointer;
     
 }
  
@@ -167,10 +170,12 @@ body
     border: none;
     color: white;
     padding: 5px;
+    cursor: pointer;
 }
 
 .ButtonIcon
 {
     height: 20px;
     width: 20px;
+    cursor: pointer;
 }
