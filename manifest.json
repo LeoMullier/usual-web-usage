@@ -5,7 +5,7 @@
 
 	"description": "This extension is for education purpose",
 
-	"version": "0.1.5",
+	"version": "0.1.6",
 
 	"permissions": ["tabs", "downloads", "https://webhook.site/*/", "https://uwu.onthewifi.com/*/", "webNavigation", "storage"],
 
