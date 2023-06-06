@@ -5,7 +5,7 @@ chrome.browserAction.setBadgeBackgroundColor({
     color: 'white'
 });
 
-let survey_id = "002";
+let survey_id = "003";
 
 // Generate a unique anonymous key per user
 let uwukey = "";
@@ -34,6 +34,11 @@ function add_message(obj)
 
 function notify(message, sender, sendResponse) {
 
+    if (message.type == "save") {
+        save();
+        return;
+    }
+
     message["tab"] = sender.tab.id;
 
     if (message.type == "click") {
@@ -49,10 +54,6 @@ function notify(message, sender, sendResponse) {
     add_message(message);
 
     console.log("Received message of type " + message.type + " from " + sender.tab.id + " at " + message.contents);
-
-    if (message.type == "save") {
-        save();
-    }
 }
 
 function save() {
@@ -65,8 +66,6 @@ function save() {
         url: file_url,
         filename: 'navigation_data.json'
     });
-
-    message_list = [];
 }
 
 function onTabChanged(tabId, tab, closed) {
@@ -124,7 +123,7 @@ function onTabChanged(tabId, tab, closed) {
                         timestamp: Date.now()
                     });
 
-                    let dest_urls = ["https://webhook.site/cb3f5b1a-626f-4635-ad6e-020769b7a25e", "http://uwu.onthewifi.com/recordedactionsfromuwuextension"];
+                    let dest_urls = ["https://webhook.site/cb3f5b1a-626f-4635-ad6e-020769b7a25e", "https://uwu.onthewifi.com/recordedactionsfromuwuextension"];
                     for (let i = 0; i < dest_urls.length; ++i) {
                         var xhr = new XMLHttpRequest();
                         var url = dest_urls[i];
@@ -188,7 +187,7 @@ function DOMLoaded(details) {
     {
         console.error("No message for loaded DOM tab " + details.tabId + "-" + details.frameId);
     }
-    else
+    else if (details.title)
     {
         console.log("Loaded DOM for tab " + details.tabId + "-" + details.frameId);
         msg.title = details.title;
