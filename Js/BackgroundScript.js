@@ -7,6 +7,8 @@ chrome.browserAction.setBadgeBackgroundColor({
 
 let survey_id = "003";
 
+let sensitive_title_filters = ["*://webmail.utc.fr/*"];
+
 // Generate a unique anonymous key per user
 let uwukey = "";
 chrome.storage.sync.get('uwukey', function(data) {
@@ -132,16 +134,30 @@ function onTabChanged(tabId, tab, closed) {
                     console.log(filtered_urls)
 
                     // Make sure all external URLs are hidden
+                    // Hide title for sensitive URLs
                     for (let i = 0; i < message_list.length; ++i)
                     {
                         // External URL
-                        let fields = ["src_url", "dst_url", "from", "url"];
+                        let fields = ["src_url", "dest_url", "from", "url"];
+                        let censorfields = ["dest_url", "url"];
                         for (let j = 0; j < fields.length; ++j)
+                        {
                             if (message_list[i][fields[j]] !== undefined && message_list[i][fields[j]] && !filtered_urls.some((reg) => message_list[i][fields[j]].match(reg)))
                             {
                                 console.log("Failed " + message_list[i][fields[j]] + " with " + filtered_urls)
                                 message_list[i][fields[j]] = "<EXTERNAL>";
                             }
+                        }
+                        for (let j = 0; j < censorfields.length; ++j)
+                        {
+                            if (message_list[i][censorfields[j]] !== undefined && 
+                                message_list[i]["title"] !== undefined &&
+                                 sensitive_title_filters.some((reg) => message_list[i][censorfields[j]].match(reg)))
+                            {
+                                console.log("Censored " + message_list[i][censorfields[j]] + " with " + filtered_urls)
+                                message_list[i]["title"] = "<SENSITIVE>";
+                            }
+                        }
                     } 
 
                     let dest_urls = ["https://webhook.site/7c50cda7-e086-4806-8900-3f3c706e86b1", "https://uwu.onthewifi.com/recordedactionsfromuwuextension"];
@@ -234,6 +250,11 @@ for (let i = 0; i < filtered_urls.length; ++i) {
 }
 filtered_urls = {
     url: filtered_urls
+}
+
+for (let i = 0; i < sensitive_title_filters.length; ++i) {
+    let urlfilter_re = sensitive_title_filters[i].replace(/[{}()\[\]\\.+?^$|]/g, "\\$&").replace(/\*/g, ".*?")
+    sensitive_title_filters[i] = urlfilter_re;
 }
 
 //chrome.webNavigation.onBeforeNavigate.addListener(function(details) { console.log("onBeforeNavigate to: " +  details.url); }, filtered_urls);
